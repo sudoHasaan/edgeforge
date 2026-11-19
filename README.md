@@ -101,7 +101,61 @@ All training scripts skip models that are already trained and resume from the la
 
 ### Part 2 - Hardware-Aware NAS (CIFAR-10)
 
-_Coming next._
+```bash
+# 1. (optional) profile random architectures on this CPU to choose constraint values
+python scripts/nas_search.py --calibrate 30
+
+# 2. Optuna search under deployment constraints, then train the best architecture from scratch
+python scripts/nas_search.py --trials 40 --epochs 5 --max-latency-ms 3.0 --max-size-mb 1.0 --final-epochs 60
+
+# 3. ONNX export + inference (PyTorch and ONNX Runtime)
+python scripts/export_onnx.py --model nas
+python scripts/infer.py --model nas --eval
+python scripts/onnx_infer.py --model nas --eval --latency
+
+# 4. Benchmark + figures
+python scripts/benchmark_nas.py
+python scripts/make_plots_nas.py
+```
+
+**Search space** (`src/nas/search_space.py`)
+
+| Dimension | Choices |
+|---|---|
+| Input resolution | 24, 28, 32 |
+| Activation | ReLU, ReLU6, Hardswish, SiLU, LeakyReLU |
+| Stem channels | 8, 16, 24, 32 |
+| Stages (depth) | 3 or 4 stages, 1-3 blocks each (3-12 blocks) |
+| Channels | per stage: {16,24,32}, {24,32,48,64}, {48,64,96,128}, {96,128,160,192} |
+| Kernel size | 3, 5, 7 (per stage) |
+| Block type | standard conv, depthwise separable, inverted residual (expansion 2/4/6) |
+
+**How the search works** (`src/nas/search.py`, `src/nas/hardware.py`)
+
+1. Optuna's TPE sampler proposes a config, and `src/nas/generator.py` builds the network.
+2. The candidate is exported to ONNX and measured on the CPU: ONNX Runtime latency (batch 1, fixed threads), `.onnx` file size, and peak inference memory (measured in a separate process; Linux, macOS and Windows).
+3. If the candidate breaks a constraint (latency, size, optional memory), it is **rejected without training**.
+4. Feasible candidates are trained for a few epochs (45k train / 5k validation) and pruned early if they lag behind the median.
+5. Objective: `reward = val_acc × (latency / limit)^-0.07` (MnasNet-style), or plain accuracy.
+6. The best feasible trial is saved to `results/nas/best_architecture.json` and trained from scratch on all of CIFAR-10.
+
+| Script | Purpose |
+|---|---|
+| `nas_search.py` | Calibration, search, automatic final training |
+| `nas_train_best.py` | Retrain the selected architecture (e.g. longer) |
+| `benchmark_nas.py` | NAS model metrics + deployment comparison of all ONNX models |
+| `make_plots_nas.py` | Search and final-training figures |
+
+**Outputs**
+
+| Path | Contents |
+|---|---|
+| `results/nas/search_history.csv` / `.json` | Every trial: config, measured latency/size/memory, status, accuracy |
+| `results/nas/best_architecture.json` | Selected architecture and its measurements |
+| `results/nas/calibration.csv` | Random-architecture hardware profile |
+| `checkpoints/nas/best_nas.pth` | Best architecture trained from scratch |
+| `onnx/nas/best_nas.onnx` | ONNX export |
+| `results/nas/nas_benchmark.csv`, `results/deployment_benchmark.csv` | Benchmarks |
 
 ## Results
 

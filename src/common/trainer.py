@@ -58,15 +58,17 @@ def ce_step(model, x, y):
 def fit(model: nn.Module, train_loader, val_loader, *, epochs: int, lr: float, weight_decay: float,
         device: torch.device, ckpt_path, history_path=None, loss_fn=None, extra_modules: nn.Module = None,
         meta: dict = None, resume: bool = True, grad_clip: float = 5.0, warmup_epochs: int = 1,
-        verbose: bool = True):
+        verbose: bool = True, epoch_callback=None):
     """Train `model` and keep the checkpoint with the best validation top-1.
 
     loss_fn(model, x, y) -> (loss, logits). Defaults to cross-entropy.
     extra_modules: additional trainable modules (e.g. KD feature connectors) optimised jointly.
+    ckpt_path=None disables checkpointing/resume (used for short NAS candidate runs).
+    epoch_callback(epoch, row) is called after every epoch (e.g. Optuna pruning; may raise).
     Returns (history list, best top-1).
     """
-    ckpt_path = Path(ckpt_path)
-    last_path = ckpt_path.with_name(ckpt_path.stem + "_last.pth")
+    ckpt_path = Path(ckpt_path) if ckpt_path else None
+    last_path = ckpt_path.with_name(ckpt_path.stem + "_last.pth") if ckpt_path else None
     loss_fn = loss_fn or ce_step
     meta = dict(meta or {})
 
@@ -79,7 +81,7 @@ def fit(model: nn.Module, train_loader, val_loader, *, epochs: int, lr: float, w
     scaler = torch.amp.GradScaler("cuda", enabled=device.type == "cuda")
 
     start_epoch, best, history = 0, -1.0, []
-    if resume and last_path.exists():
+    if resume and last_path is not None and last_path.exists():
         st = load_checkpoint(last_path, map_location=device)
         model.load_state_dict(st["model"])
         if extra_modules is not None and st.get("extra") is not None:
@@ -131,27 +133,31 @@ def fit(model: nn.Module, train_loader, val_loader, *, epochs: int, lr: float, w
             raise RuntimeError("Training diverged (non-finite loss). Try a lower learning rate.")
         if val["top1"] > best:
             best = val["top1"]
-            save_checkpoint(ckpt_path, model, {**meta, "epoch": epoch + 1, "top1": val["top1"],
-                                               "top5": val["top5"], "completed": False})
-        torch.save({
-            "model": model.state_dict(),
-            "extra": extra_modules.state_dict() if extra_modules is not None else None,
-            "optimizer": optimizer.state_dict(), "scheduler": scheduler.state_dict(),
-            "scaler": scaler.state_dict(), "epoch": epoch + 1, "best": best, "history": history,
-        }, last_path)
+            if ckpt_path is not None:
+                save_checkpoint(ckpt_path, model, {**meta, "epoch": epoch + 1, "top1": val["top1"],
+                                                   "top5": val["top5"], "completed": False})
+        if last_path is not None:
+            torch.save({
+                "model": model.state_dict(),
+                "extra": extra_modules.state_dict() if extra_modules is not None else None,
+                "optimizer": optimizer.state_dict(), "scheduler": scheduler.state_dict(),
+                "scaler": scaler.state_dict(), "epoch": epoch + 1, "best": best, "history": history,
+            }, last_path)
         if history_path:
             write_csv(history_path, history)
         if verbose:
             print(f"  ep {epoch + 1:3d}/{epochs} | loss {row['train_loss']:.3f} | train {row['train_top1']:5.2f}% "
                   f"| val {row['val_top1']:5.2f}% (top5 {row['val_top5']:5.2f}%) | best {best:5.2f}% "
                   f"| {row['epoch_time_s']}s", flush=True)
+        if epoch_callback is not None:
+            epoch_callback(epoch + 1, row)
 
     # Mark the best checkpoint as complete and drop the bulky resume file.
-    if ckpt_path.exists():
+    if ckpt_path is not None and ckpt_path.exists():
         st = load_checkpoint(ckpt_path)
         st["meta"]["completed"] = True
         st["meta"]["epochs"] = epochs
         torch.save(st, ckpt_path)
-    if last_path.exists():
+    if last_path is not None and last_path.exists():
         last_path.unlink()
     return history, best
