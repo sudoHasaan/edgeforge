@@ -5,7 +5,9 @@ The whole dataset (~150 MB as uint8) is kept on the training device and augmenta
 the CPU dataloader bottleneck and makes each epoch several times faster than a PIL pipeline.
 """
 from dataclasses import dataclass
+from pathlib import Path
 
+import numpy as np
 import torch
 import torch.nn.functional as F
 from torchvision import datasets
@@ -19,13 +21,46 @@ CIFAR_STATS = {
 NUM_CLASSES = {"cifar10": 10, "cifar100": 100}
 
 
-def load_raw(name: str, train: bool, root=DATA_DIR):
-    """Return (images uint8 [N,3,32,32], labels int64 [N], class names)."""
+HF_REPOS = {"cifar10": ("uoft-cs/cifar10", "label"), "cifar100": ("uoft-cs/cifar100", "fine_label")}
+
+
+def _from_huggingface(name: str, train: bool):
+    """Fast mirror (the official Toronto server is often very slow from Colab)."""
+    from datasets import load_dataset
+    repo, label_col = HF_REPOS[name]
+    ds = load_dataset(repo, split="train" if train else "test")
+    x = np.stack([np.asarray(im.convert("RGB")) for im in ds["img"]])
+    y = np.asarray(ds[label_col], dtype=np.int64)
+    return x, y, list(ds.features[label_col].names)
+
+
+def _from_torchvision(name: str, train: bool, root):
     cls = datasets.CIFAR10 if name == "cifar10" else datasets.CIFAR100
     ds = cls(str(root), train=train, download=True)
-    x = torch.from_numpy(ds.data).permute(0, 3, 1, 2).contiguous()
-    y = torch.tensor(ds.targets, dtype=torch.long)
-    return x, y, list(ds.classes)
+    return ds.data, np.asarray(ds.targets, dtype=np.int64), list(ds.classes)
+
+
+def load_raw_numpy(name: str, train: bool, root=DATA_DIR):
+    """Return (images uint8 [N,32,32,3], labels int64 [N], class names), cached as .npz in `root`."""
+    root = Path(root)
+    cache = root / f"{name}_{'train' if train else 'test'}.npz"
+    if cache.exists():
+        d = np.load(cache)
+        return d["x"], d["y"], [str(c) for c in d["classes"]]
+    try:
+        x, y, classes = _from_huggingface(name, train)
+    except Exception as e:  # no internet to HF / `datasets` missing -> official source
+        print(f"[data] Hugging Face mirror unavailable ({type(e).__name__}: {e}); using torchvision download")
+        x, y, classes = _from_torchvision(name, train, root)
+    root.mkdir(parents=True, exist_ok=True)
+    np.savez(cache, x=x, y=y, classes=np.asarray(classes))
+    return x, y, classes
+
+
+def load_raw(name: str, train: bool, root=DATA_DIR):
+    """Return (images uint8 [N,3,32,32], labels int64 [N], class names) as torch tensors."""
+    x, y, classes = load_raw_numpy(name, train, root)
+    return torch.from_numpy(x).permute(0, 3, 1, 2).contiguous(), torch.from_numpy(y), classes
 
 
 def random_crop_flip(x: torch.Tensor, pad: int = 4) -> torch.Tensor:

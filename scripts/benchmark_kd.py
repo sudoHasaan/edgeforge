@@ -15,10 +15,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import numpy as np
 
 from src.common.benchmark import environment_info, torch_cpu_latency
-from src.common.data import get_loaders
+from src.common.data import get_loaders, load_raw_numpy
 from src.common.inference import load_model
 from src.common.onnx_utils import OnnxPredictor
-from src.common.paths import DATA_DIR, RESULTS_DIR, ckpt_path, onnx_path, resolve_targets
+from src.common.paths import RESULTS_DIR, ckpt_path, onnx_path, resolve_targets
 from src.common.trainer import evaluate
 from src.common.utils import count_params, file_size_mb, get_device, save_json, write_csv
 
@@ -64,9 +64,7 @@ def main():
                         "ort_speedup_x": round(lat["mean_ms"] / ol["mean_ms"], 2)})
             if not args.skip_ort_eval:
                 if arrays is None:
-                    from torchvision import datasets
-                    ds = datasets.CIFAR100(str(DATA_DIR), train=False, download=True)
-                    arrays = (ds.data, np.asarray(ds.targets))
+                    arrays = load_raw_numpy("cifar100", train=False)[:2]
                 row["ort_top1"] = round(sess.evaluate(*arrays)["top1"], 2)
         rows.append(row)
         print(f"{model_name:<20} {variant:<10} top-1 {row['top1']:6.2f}% | {row['params_M']:7.3f}M params | "

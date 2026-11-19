@@ -15,15 +15,14 @@ import numpy as np
 import onnxruntime as ort
 
 from src.common.onnx_utils import OnnxPredictor
-from src.common.paths import DATA_DIR, MODEL_CHOICES, VARIANT_CHOICES, onnx_path, resolve_targets
+from src.common.data import load_raw_numpy
+from src.common.paths import MODEL_CHOICES, VARIANT_CHOICES, onnx_path, resolve_targets
 
 
 def load_test_arrays(dataset: str):
     """CIFAR test set as uint8 [N,32,32,3] and int labels."""
-    from torchvision import datasets
-    cls = datasets.CIFAR10 if dataset == "cifar10" else datasets.CIFAR100
-    ds = cls(str(DATA_DIR), train=False, download=True)
-    return ds.data, np.asarray(ds.targets)
+    x, y, _ = load_raw_numpy(dataset, train=False)
+    return x, y
 
 
 def main():
