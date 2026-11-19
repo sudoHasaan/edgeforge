@@ -1,0 +1,8 @@
+model,variant,params_M,ckpt_MB,top1,top5,torch_cpu_ms,torch_cpu_p95_ms,onnx_MB,ort_cpu_ms,ort_cpu_p95_ms,ort_speedup_x,ort_top1,kd_gain_pp
+resnet50,teacher,23.713,90.75,84.33,97.22,63.624,79.015,90.38,32.233,36.542,1.97,84.31,
+mobilenetv2,baseline,2.352,9.19,80.29,96.08,11.855,14.084,8.94,3.398,5.214,3.49,80.29,
+mobilenetv2,distilled,2.352,9.2,81.66,96.57,15.637,19.104,8.94,5.579,9.168,2.8,81.67,1.37
+squeezenet,baseline,0.774,2.97,66.15,90.87,3.818,4.839,2.97,0.712,0.802,5.36,66.14,
+squeezenet,distilled,0.774,2.97,63.08,90.15,5.485,5.912,2.97,0.968,1.058,5.66,63.06,-3.07
+efficientnet_lite0,baseline,3.499,13.6,82.01,96.54,13.531,16.294,13.31,4.216,6.404,3.21,81.99,
+efficientnet_lite0,distilled,3.499,13.6,82.99,96.79,13.923,16.315,13.31,4.516,6.795,3.08,82.99,0.98

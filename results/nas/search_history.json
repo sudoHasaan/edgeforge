@@ -1,0 +1,1964 @@
+[
+  {
+    "trial": 0,
+    "state": "COMPLETE",
+    "value": 74.11517323468821,
+    "config": {
+      "resolution": 28,
+      "activation": "leaky_relu",
+      "stem_channels": 32,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 16,
+          "depth": 1,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 1
+        },
+        {
+          "block": "dwsep",
+          "channels": 48,
+          "depth": 3,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "dwsep",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 2.68,
+    "latency_ms": 0.657,
+    "latency_p95_ms": 0.7417,
+    "macs_M": 17.677,
+    "params": 38074,
+    "peak_rss_mb": 788.02,
+    "session_rss_mb": 65.78,
+    "size_mb": 0.1485,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 38.5,
+    "val_top1": 70.62
+  },
+  {
+    "trial": 1,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 24,
+      "activation": "leaky_relu",
+      "stem_channels": 24,
+      "stages": [
+        {
+          "block": "conv",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 0.79,
+    "latency_ms": 1.6977,
+    "latency_p95_ms": 1.8474,
+    "macs_M": 37.781,
+    "params": 107458,
+    "peak_rss_mb": 2346.42,
+    "reject_reason": "latency 1.70ms > 1.31ms",
+    "session_rss_mb": 66.23,
+    "size_mb": 0.4122,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 2,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 24,
+      "activation": "hardswish",
+      "stem_channels": 32,
+      "stages": [
+        {
+          "block": "conv",
+          "channels": 32,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "dwsep",
+          "channels": 64,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "conv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "conv",
+          "channels": 192,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 0.63,
+    "latency_ms": 0.6558,
+    "latency_p95_ms": 0.735,
+    "macs_M": 16.282,
+    "params": 527306,
+    "peak_rss_mb": 2357.42,
+    "reject_reason": "size 2.01MB > 0.78MB",
+    "session_rss_mb": 72.07,
+    "size_mb": 2.0133,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 3,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 32,
+      "activation": "silu",
+      "stem_channels": 24,
+      "stages": [
+        {
+          "block": "conv",
+          "channels": 32,
+          "depth": 1,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 3,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "conv",
+          "channels": 128,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 128,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 0.69,
+    "latency_ms": 3.9149,
+    "latency_p95_ms": 4.2535,
+    "macs_M": 136.996,
+    "params": 836642,
+    "peak_rss_mb": 2366.54,
+    "reject_reason": "latency 3.91ms > 1.31ms; size 3.18MB > 0.78MB",
+    "session_rss_mb": 72.42,
+    "size_mb": 3.1833,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 4,
+    "state": "COMPLETE",
+    "value": 76.7253206313326,
+    "config": {
+      "resolution": 28,
+      "activation": "leaky_relu",
+      "stem_channels": 8,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 16,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 32,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 6,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.14,
+    "latency_ms": 0.3786,
+    "latency_p95_ms": 0.4521,
+    "macs_M": 7.217,
+    "params": 22130,
+    "peak_rss_mb": 2366.67,
+    "session_rss_mb": 65.84,
+    "size_mb": 0.0875,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 22.3,
+    "val_top1": 70.34
+  },
+  {
+    "trial": 5,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 32,
+      "activation": "relu6",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "conv",
+          "channels": 32,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 32,
+          "depth": 3,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "conv",
+          "channels": 128,
+          "depth": 3,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 0.56,
+    "latency_ms": 2.5206,
+    "latency_p95_ms": 2.848,
+    "macs_M": 71.223,
+    "params": 956634,
+    "peak_rss_mb": 2471.17,
+    "reject_reason": "latency 2.52ms > 1.31ms; size 3.65MB > 0.78MB",
+    "session_rss_mb": 77.71,
+    "size_mb": 3.6539,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 6,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 32,
+      "activation": "hardswish",
+      "stem_channels": 32,
+      "stages": [
+        {
+          "block": "conv",
+          "channels": 16,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 32,
+          "depth": 3,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 2
+        },
+        {
+          "block": "conv",
+          "channels": 128,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "conv",
+          "channels": 128,
+          "depth": 1,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 0.69,
+    "latency_ms": 1.3455,
+    "latency_p95_ms": 1.4935,
+    "macs_M": 38.061,
+    "params": 1023690,
+    "peak_rss_mb": 2475.42,
+    "reject_reason": "latency 1.35ms > 1.31ms; size 3.91MB > 0.78MB",
+    "session_rss_mb": 83.77,
+    "size_mb": 3.9052,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 7,
+    "state": "COMPLETE",
+    "value": 76.7464378674894,
+    "config": {
+      "resolution": 24,
+      "activation": "silu",
+      "stem_channels": 24,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 16,
+          "depth": 1,
+          "kernel": 7,
+          "expansion": 2,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "dwsep",
+          "channels": 128,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 0.96,
+    "latency_ms": 0.2925,
+    "latency_p95_ms": 0.3609,
+    "macs_M": 6.513,
+    "params": 53066,
+    "peak_rss_mb": 2475.54,
+    "session_rss_mb": 65.71,
+    "size_mb": 0.2059,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 13.0,
+    "val_top1": 69.1
+  },
+  {
+    "trial": 8,
+    "state": "COMPLETE",
+    "value": 69.58418212793435,
+    "config": {
+      "resolution": 32,
+      "activation": "hardswish",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "dwsep",
+          "channels": 24,
+          "depth": 3,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "dwsep",
+          "channels": 64,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.08,
+    "latency_ms": 0.4296,
+    "latency_p95_ms": 0.5067,
+    "macs_M": 8.182,
+    "params": 37362,
+    "peak_rss_mb": 2793.3,
+    "session_rss_mb": 65.88,
+    "size_mb": 0.1453,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 15.7,
+    "val_top1": 64.36
+  },
+  {
+    "trial": 9,
+    "state": "COMPLETE",
+    "value": 82.27559717825574,
+    "config": {
+      "resolution": 24,
+      "activation": "relu6",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.01,
+    "latency_ms": 0.6944,
+    "latency_p95_ms": 0.8943,
+    "macs_M": 17.85,
+    "params": 158666,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.55,
+    "size_mb": 0.608,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 14.3,
+    "val_top1": 78.7
+  },
+  {
+    "trial": 10,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 24,
+      "activation": "relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "conv",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 96,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 0.94,
+    "latency_ms": 1.052,
+    "latency_p95_ms": 1.2372,
+    "macs_M": 25.413,
+    "params": 274266,
+    "peak_rss_mb": 2834.54,
+    "reject_reason": "size 1.04MB > 0.78MB",
+    "session_rss_mb": 67.75,
+    "size_mb": 1.0407,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 11,
+    "state": "PRUNED",
+    "value": 60.40405182761993,
+    "config": {
+      "resolution": 24,
+      "activation": "silu",
+      "stem_channels": 8,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 16,
+          "depth": 1,
+          "kernel": 7,
+          "expansion": 2,
+          "stride": 1
+        },
+        {
+          "block": "dwsep",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "dwsep",
+          "channels": 96,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 0.79,
+    "latency_ms": 0.2067,
+    "latency_p95_ms": 0.2377,
+    "macs_M": 1.593,
+    "params": 21738,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 65.78,
+    "size_mb": 0.0883,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 53.08
+  },
+  {
+    "trial": 12,
+    "state": "COMPLETE",
+    "value": 79.12748578928814,
+    "config": {
+      "resolution": 24,
+      "activation": "hardswish",
+      "stem_channels": 32,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 16,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "dwsep",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.4,
+    "latency_ms": 0.5799,
+    "latency_p95_ms": 0.6383,
+    "macs_M": 16.119,
+    "params": 96858,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.02,
+    "size_mb": 0.3717,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 13.2,
+    "val_top1": 74.74
+  },
+  {
+    "trial": 13,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 24,
+      "activation": "hardswish",
+      "stem_channels": 32,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 32,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 3,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 2
+        },
+        {
+          "block": "dwsep",
+          "channels": 160,
+          "depth": 3,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 1.33,
+    "latency_ms": 0.8678,
+    "latency_p95_ms": 0.9695,
+    "macs_M": 25.052,
+    "params": 283114,
+    "peak_rss_mb": 2834.54,
+    "reject_reason": "size 1.07MB > 0.78MB",
+    "session_rss_mb": 67.57,
+    "size_mb": 1.0739,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 14,
+    "state": "COMPLETE",
+    "value": 77.30122632364697,
+    "config": {
+      "resolution": 28,
+      "activation": "relu6",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 16,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.14,
+    "latency_ms": 0.4298,
+    "latency_p95_ms": 0.4919,
+    "macs_M": 7.895,
+    "params": 37754,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 65.89,
+    "size_mb": 0.1494,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 11.3,
+    "val_top1": 71.5
+  },
+  {
+    "trial": 15,
+    "state": "PRUNED",
+    "value": 59.767579970202796,
+    "config": {
+      "resolution": 24,
+      "activation": "hardswish",
+      "stem_channels": 32,
+      "stages": [
+        {
+          "block": "dwsep",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "dwsep",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 0.84,
+    "latency_ms": 0.8001,
+    "latency_p95_ms": 0.8857,
+    "macs_M": 25.786,
+    "params": 180938,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 67.94,
+    "size_mb": 0.6933,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 57.74
+  },
+  {
+    "trial": 16,
+    "state": "COMPLETE",
+    "value": 79.64875148860688,
+    "config": {
+      "resolution": 24,
+      "activation": "relu6",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "dwsep",
+          "channels": 32,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.02,
+    "latency_ms": 0.53,
+    "latency_p95_ms": 0.6511,
+    "macs_M": 6.13,
+    "params": 92530,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.19,
+    "size_mb": 0.3563,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 13.0,
+    "val_top1": 74.76
+  },
+  {
+    "trial": 17,
+    "state": "PRUNED",
+    "value": 69.40405729773877,
+    "config": {
+      "resolution": 24,
+      "activation": "relu6",
+      "stem_channels": 32,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 7,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "dwsep",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 3,
+    "inference_mem_mb": 1.4,
+    "latency_ms": 0.9783,
+    "latency_p95_ms": 1.1503,
+    "macs_M": 16.252,
+    "params": 144674,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.25,
+    "size_mb": 0.5502,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 68.0
+  },
+  {
+    "trial": 18,
+    "state": "PRUNED",
+    "value": 48.53776708203591,
+    "config": {
+      "resolution": 32,
+      "activation": "relu6",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 6,
+          "stride": 1
+        },
+        {
+          "block": "dwsep",
+          "channels": 32,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "conv",
+          "channels": 64,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 1.58,
+    "latency_ms": 0.6716,
+    "latency_p95_ms": 0.7666,
+    "macs_M": 9.354,
+    "params": 61010,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 65.93,
+    "size_mb": 0.2389,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 46.32
+  },
+  {
+    "trial": 19,
+    "state": "COMPLETE",
+    "value": 82.16488238026851,
+    "config": {
+      "resolution": 32,
+      "activation": "relu6",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 16,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.34,
+    "latency_ms": 0.6369,
+    "latency_p95_ms": 0.7253,
+    "macs_M": 17.214,
+    "params": 121370,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.13,
+    "size_mb": 0.4648,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 25.4,
+    "val_top1": 78.12
+  },
+  {
+    "trial": 20,
+    "state": "PRUNED",
+    "value": 59.45179700627896,
+    "config": {
+      "resolution": 32,
+      "activation": "relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 16,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 1.33,
+    "latency_ms": 0.3782,
+    "latency_p95_ms": 0.4523,
+    "macs_M": 13.87,
+    "params": 66778,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 65.96,
+    "size_mb": 0.255,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 54.5
+  },
+  {
+    "trial": 21,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 24,
+      "activation": "relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 32,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 3,
+          "kernel": 5,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 1.01,
+    "latency_ms": 0.8634,
+    "latency_p95_ms": 0.9571,
+    "macs_M": 20.43,
+    "params": 237450,
+    "peak_rss_mb": 2834.54,
+    "reject_reason": "size 0.90MB > 0.78MB",
+    "session_rss_mb": 67.18,
+    "size_mb": 0.8989,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 22,
+    "state": "PRUNED",
+    "value": 61.78995807384837,
+    "config": {
+      "resolution": 32,
+      "activation": "relu6",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 16,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 3,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "dwsep",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 1.33,
+    "latency_ms": 0.8815,
+    "latency_p95_ms": 1.018,
+    "macs_M": 11.886,
+    "params": 42762,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 65.88,
+    "size_mb": 0.1718,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 60.1
+  },
+  {
+    "trial": 23,
+    "state": "COMPLETE",
+    "value": 83.36040812383916,
+    "config": {
+      "resolution": 32,
+      "activation": "leaky_relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.26,
+    "latency_ms": 0.8155,
+    "latency_p95_ms": 0.9992,
+    "macs_M": 18.676,
+    "params": 138874,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.56,
+    "size_mb": 0.5268,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 38.5,
+    "val_top1": 80.64
+  },
+  {
+    "trial": 24,
+    "state": "COMPLETE",
+    "value": 83.90034106900833,
+    "config": {
+      "resolution": 32,
+      "activation": "leaky_relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 32,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.64,
+    "latency_ms": 0.7814,
+    "latency_p95_ms": 0.8722,
+    "macs_M": 18.033,
+    "params": 89098,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.39,
+    "size_mb": 0.3403,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 39.6,
+    "val_top1": 80.92
+  },
+  {
+    "trial": 25,
+    "state": "PRUNED",
+    "value": 72.00957077868905,
+    "config": {
+      "resolution": 32,
+      "activation": "hardswish",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 16,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 2,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 32,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 3,
+    "inference_mem_mb": 1.02,
+    "latency_ms": 0.3922,
+    "latency_p95_ms": 0.4538,
+    "macs_M": 8.385,
+    "params": 45466,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.01,
+    "size_mb": 0.1771,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 66.18
+  },
+  {
+    "trial": 26,
+    "state": "COMPLETE",
+    "value": 83.45522923177488,
+    "config": {
+      "resolution": 24,
+      "activation": "leaky_relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "dwsep",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 0.94,
+    "latency_ms": 0.3654,
+    "latency_p95_ms": 0.424,
+    "macs_M": 9.151,
+    "params": 136298,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.32,
+    "size_mb": 0.5175,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 21.2,
+    "val_top1": 76.32
+  },
+  {
+    "trial": 27,
+    "state": "PRUNED",
+    "value": 51.932125959987815,
+    "config": {
+      "resolution": 24,
+      "activation": "leaky_relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "dwsep",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 32,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 128,
+          "depth": 1,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 0.96,
+    "latency_ms": 0.3843,
+    "latency_p95_ms": 0.4234,
+    "macs_M": 4.688,
+    "params": 53930,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.11,
+    "size_mb": 0.2079,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 47.66
+  },
+  {
+    "trial": 28,
+    "state": "PRUNED",
+    "value": 60.28877614109662,
+    "config": {
+      "resolution": 24,
+      "activation": "relu6",
+      "stem_channels": 32,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 6,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 32,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        },
+        {
+          "block": "dwsep",
+          "channels": 96,
+          "depth": 3,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 1.61,
+    "latency_ms": 0.8945,
+    "latency_p95_ms": 1.0521,
+    "macs_M": 17.664,
+    "params": 138682,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.6,
+    "size_mb": 0.5347,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 58.7
+  },
+  {
+    "trial": 29,
+    "state": "PRUNED",
+    "value": 28.75636626605746,
+    "config": {
+      "resolution": 24,
+      "activation": "leaky_relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "dwsep",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "dwsep",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 0.92,
+    "latency_ms": 0.3541,
+    "latency_p95_ms": 0.4574,
+    "macs_M": 7.993,
+    "params": 127850,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.08,
+    "size_mb": 0.4868,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 26.24
+  },
+  {
+    "trial": 30,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 32,
+      "activation": "leaky_relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 96,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 2.76,
+    "latency_ms": 1.5058,
+    "latency_p95_ms": 1.7637,
+    "macs_M": 43.642,
+    "params": 240282,
+    "peak_rss_mb": 2834.54,
+    "reject_reason": "latency 1.51ms > 1.31ms; size 0.91MB > 0.78MB",
+    "session_rss_mb": 67.62,
+    "size_mb": 0.9102,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 31,
+    "state": "PRUNED",
+    "value": 60.12023709886034,
+    "config": {
+      "resolution": 24,
+      "activation": "relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "dwsep",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 4,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 1.06,
+    "latency_ms": 0.2422,
+    "latency_p95_ms": 0.3455,
+    "macs_M": 6.777,
+    "params": 90042,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 65.93,
+    "size_mb": 0.3426,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 53.42
+  },
+  {
+    "trial": 32,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 32,
+      "activation": "leaky_relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 3,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "dwsep",
+          "channels": 32,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 1.64,
+    "latency_ms": 1.6033,
+    "latency_p95_ms": 1.7873,
+    "macs_M": 21.115,
+    "params": 88274,
+    "peak_rss_mb": 2834.54,
+    "reject_reason": "latency 1.60ms > 1.31ms",
+    "session_rss_mb": 66.16,
+    "size_mb": 0.3378,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 33,
+    "state": "COMPLETE",
+    "value": 81.92841139042142,
+    "config": {
+      "resolution": 32,
+      "activation": "leaky_relu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 2,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.26,
+    "latency_ms": 0.893,
+    "latency_p95_ms": 0.9964,
+    "macs_M": 29.097,
+    "params": 130410,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.26,
+    "size_mb": 0.4994,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 20.1,
+    "val_top1": 79.76
+  },
+  {
+    "trial": 34,
+    "state": "COMPLETE",
+    "value": 81.77073960679675,
+    "config": {
+      "resolution": 28,
+      "activation": "leaky_relu",
+      "stem_channels": 24,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 32,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 6,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 5,
+    "inference_mem_mb": 1.71,
+    "latency_ms": 0.9616,
+    "latency_p95_ms": 1.2475,
+    "macs_M": 20.919,
+    "params": 111858,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 66.07,
+    "size_mb": 0.4236,
+    "status": "feasible",
+    "threads": 1,
+    "train_time_s": 44.5,
+    "val_top1": 80.02
+  },
+  {
+    "trial": 35,
+    "state": "PRUNED",
+    "value": 62.58366284044624,
+    "config": {
+      "resolution": 32,
+      "activation": "leaky_relu",
+      "stem_channels": 32,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 2,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 32,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 4,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 1.39,
+    "latency_ms": 0.9169,
+    "latency_p95_ms": 1.2235,
+    "macs_M": 12.764,
+    "params": 50378,
+    "peak_rss_mb": 2834.54,
+    "session_rss_mb": 65.86,
+    "size_mb": 0.1941,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 61.04
+  },
+  {
+    "trial": 36,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 24,
+      "activation": "silu",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "conv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 1.05,
+    "latency_ms": 0.5503,
+    "latency_p95_ms": 0.6024,
+    "macs_M": 12.654,
+    "params": 212906,
+    "peak_rss_mb": 2834.54,
+    "reject_reason": "size 0.82MB > 0.78MB",
+    "session_rss_mb": 67.54,
+    "size_mb": 0.8153,
+    "status": "rejected",
+    "threads": 1
+  },
+  {
+    "trial": 37,
+    "state": "PRUNED",
+    "value": 58.38005881411959,
+    "config": {
+      "resolution": 32,
+      "activation": "relu6",
+      "stem_channels": 16,
+      "stages": [
+        {
+          "block": "mbconv",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 3,
+          "expansion": 4,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 32,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 128,
+          "depth": 1,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 1.64,
+    "latency_ms": 0.8207,
+    "latency_p95_ms": 0.9382,
+    "macs_M": 16.344,
+    "params": 62410,
+    "peak_rss_mb": 2836.45,
+    "session_rss_mb": 65.95,
+    "size_mb": 0.2446,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 56.5
+  },
+  {
+    "trial": 38,
+    "state": "PRUNED",
+    "value": 65.17546006407999,
+    "config": {
+      "resolution": 24,
+      "activation": "relu6",
+      "stem_channels": 24,
+      "stages": [
+        {
+          "block": "dwsep",
+          "channels": 24,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "conv",
+          "channels": 24,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 2
+        },
+        {
+          "block": "mbconv",
+          "channels": 64,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 6,
+          "stride": 2
+        }
+      ]
+    },
+    "epochs_trained": 2,
+    "inference_mem_mb": 0.91,
+    "latency_ms": 0.6507,
+    "latency_p95_ms": 0.7255,
+    "macs_M": 8.729,
+    "params": 121578,
+    "peak_rss_mb": 2836.57,
+    "session_rss_mb": 66.34,
+    "size_mb": 0.4663,
+    "status": "pruned",
+    "threads": 1,
+    "val_top1": 62.06
+  },
+  {
+    "trial": 39,
+    "state": "PRUNED",
+    "value": null,
+    "config": {
+      "resolution": 24,
+      "activation": "leaky_relu",
+      "stem_channels": 8,
+      "stages": [
+        {
+          "block": "dwsep",
+          "channels": 16,
+          "depth": 1,
+          "kernel": 5,
+          "expansion": 1,
+          "stride": 1
+        },
+        {
+          "block": "mbconv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 5,
+          "expansion": 2,
+          "stride": 2
+        },
+        {
+          "block": "conv",
+          "channels": 48,
+          "depth": 2,
+          "kernel": 7,
+          "expansion": 1,
+          "stride": 2
+        }
+      ]
+    },
+    "inference_mem_mb": 0.69,
+    "latency_ms": 0.4493,
+    "latency_p95_ms": 0.5198,
+    "macs_M": 10.746,
+    "params": 242250,
+    "peak_rss_mb": 2836.57,
+    "reject_reason": "size 0.93MB > 0.78MB",
+    "session_rss_mb": 67.79,
+    "size_mb": 0.9278,
+    "status": "rejected",
+    "threads": 1
+  }
+]

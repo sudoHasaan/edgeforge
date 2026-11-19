@@ -1,0 +1,4 @@
+student,variant,best_top1,alpha,temperature,beta
+mobilenetv2,distilled,81.66,0.9,4.0,1.0
+squeezenet,distilled,63.08,0.9,4.0,1.0
+efficientnet_lite0,distilled,82.99,0.9,4.0,1.0

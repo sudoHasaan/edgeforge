@@ -1,0 +1,2 @@
+model,arch,dataset,resolution,top1,top5,params,macs_M,ckpt_MB,torch_cpu_ms,onnx_MB,ort_cpu_ms,ort_cpu_p95_ms,ort_top1,peak_rss_mb,session_rss_mb,inference_mem_mb,meets_constraints,constraint_notes
+nas,r32 leaky_relu stem16 | mb3x2e4@24 > mb5x2e2@32 > mb7x2e6@48,cifar10,32,91.84,99.76,89098,18.033,0.388,4.7326,0.344,0.8487,1.336,91.85,2152.09,66.19,1.64,True,

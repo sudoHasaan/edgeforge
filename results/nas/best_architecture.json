@@ -1,0 +1,53 @@
+{
+  "trial": 24,
+  "objective": 83.90034106900833,
+  "val_top1": 80.92,
+  "arch": "r32 leaky_relu stem16 | mb3x2e4@24 > mb5x2e2@32 > mb7x2e6@48",
+  "config": {
+    "resolution": 32,
+    "activation": "leaky_relu",
+    "stem_channels": 16,
+    "stages": [
+      {
+        "block": "mbconv",
+        "channels": 24,
+        "depth": 2,
+        "kernel": 3,
+        "expansion": 4,
+        "stride": 1
+      },
+      {
+        "block": "mbconv",
+        "channels": 32,
+        "depth": 2,
+        "kernel": 5,
+        "expansion": 2,
+        "stride": 2
+      },
+      {
+        "block": "mbconv",
+        "channels": 48,
+        "depth": 2,
+        "kernel": 7,
+        "expansion": 6,
+        "stride": 2
+      }
+    ]
+  },
+  "hardware": {
+    "params": 89098,
+    "macs_M": 18.033,
+    "size_mb": 0.3403,
+    "latency_ms": 0.7814,
+    "latency_p95_ms": 0.8722,
+    "peak_rss_mb": 2834.54,
+    "inference_mem_mb": 1.64,
+    "threads": 1
+  },
+  "constraints": {
+    "max_latency_ms": 1.31,
+    "max_size_mb": 0.78,
+    "max_peak_mem_mb": null
+  },
+  "objective_type": "reward"
+}

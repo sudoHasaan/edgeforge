@@ -6,13 +6,23 @@ Prints JSON: peak RSS of the process (MB), RSS after the session is created, and
 memory used while running inference. Running in a separate process keeps the training
 process's memory (PyTorch, CUDA, datasets) out of the measurement.
 
-Peak RSS comes from getrusage(ru_maxrss) on Linux/macOS and from the peak working set on Windows.
+Peak RSS comes from /proc/self/status VmHWM on Linux, getrusage(ru_maxrss) on macOS and the peak
+working set on Windows.
 """
 import json
 import sys
 
 
 def peak_rss_mb():
+    # Linux: VmHWM belongs to this process's address space and is reset by exec. (ru_maxrss is NOT:
+    # it is inherited from the parent across fork/exec, so it would report the training process's peak.)
+    try:
+        with open("/proc/self/status") as f:
+            for line in f:
+                if line.startswith("VmHWM:"):
+                    return int(line.split()[1]) / 1024  # kB -> MB
+    except OSError:
+        pass
     try:
         import resource
         r = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss

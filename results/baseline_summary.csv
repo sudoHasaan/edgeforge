@@ -1,0 +1,4 @@
+student,variant,best_top1
+mobilenetv2,baseline,80.29
+squeezenet,baseline,66.15
+efficientnet_lite0,baseline,82.01

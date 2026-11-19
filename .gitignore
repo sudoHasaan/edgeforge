@@ -12,8 +12,9 @@ env/
 # Datasets (downloaded at runtime)
 data/
 
-# Resume-only training state (final checkpoints are kept)
-*_last.pth
+# Model weights and ONNX exports (too large for git; folders stay tracked via .gitkeep)
+*.pth
+*.onnx
 
 # Optuna / temp
 *.db
