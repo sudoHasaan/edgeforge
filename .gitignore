@@ -12,6 +12,9 @@ env/
 # Datasets (downloaded at runtime)
 data/
 
+# Resume-only training state (final checkpoints are kept)
+*_last.pth
+
 # Optuna / temp
 *.db
 *.log

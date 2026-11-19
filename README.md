@@ -32,22 +32,76 @@ Open a notebook directly in Colab:
 
 | Notebook | Link |
 |---|---|
-| Knowledge Distillation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/edgeforge/blob/main/notebooks/01_knowledge_distillation.ipynb) |
-| Hardware-Aware NAS | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<your-username>/edgeforge/blob/main/notebooks/02_hardware_aware_nas.ipynb) |
+| Knowledge Distillation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sudoHasaan/edgeforge/blob/main/notebooks/01_knowledge_distillation.ipynb) |
+| Hardware-Aware NAS | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sudoHasaan/edgeforge/blob/main/notebooks/02_hardware_aware_nas.ipynb) |
 
 > Set **Runtime → Change runtime type → GPU** before running.
 
 ## Local Installation
 
 ```bash
-git clone https://github.com/<your-username>/edgeforge.git
+git clone https://github.com/sudoHasaan/edgeforge.git
 cd edgeforge
 pip install -r requirements.txt
 ```
 
 ## Execution Steps
 
-_To be added as modules are implemented._
+### Part 1 - Knowledge Distillation (CIFAR-100)
+
+Run from the repository root (the Colab notebook runs exactly these commands):
+
+```bash
+# 1. Teacher
+python scripts/train_teacher.py --epochs 30
+
+# 2. Baseline students (cross-entropy only)
+python scripts/train_baseline.py --students all --epochs 30
+
+# 3. Distilled students (soft targets + hard labels + feature hints)
+python scripts/train_kd.py --students all --epochs 30 --alpha 0.9 --temperature 4 --beta 1.0
+
+# 4. Unified PyTorch inference
+python scripts/infer.py --model resnet50 all --variant all --eval
+python scripts/infer.py --model mobilenetv2 --variant distilled --image path/to/image.jpg
+
+# 5. ONNX export + ONNX Runtime CPU inference
+python scripts/export_onnx.py --model resnet50 all --variant all
+python scripts/onnx_infer.py --model all --variant all --eval --latency
+
+# 6. Benchmark + figures
+python scripts/benchmark_kd.py
+python scripts/make_plots_kd.py
+```
+
+| Script | Purpose |
+|---|---|
+| `train_teacher.py` | ResNet-50 teacher (ImageNet init, CIFAR stem) |
+| `train_baseline.py` | Students without distillation |
+| `train_kd.py` | KD: `--alpha` (soft vs hard weight), `--temperature`, `--beta` (feature hints, 0 disables), `--feat-layers mid final` |
+| `infer.py` | Unified PyTorch inference: `--image`, `--samples N`, `--eval`, any `--model`/`--variant` or `--ckpt` |
+| `export_onnx.py` | ONNX export (opset 17, dynamic batch) with PyTorch-vs-ORT output check |
+| `onnx_infer.py` | ONNX Runtime CPU inference: `--image`, `--samples N`, `--eval`, `--latency` |
+| `benchmark_kd.py` | Accuracy, params, file size, PyTorch vs ORT CPU latency -> `results/kd_benchmark.csv` |
+| `make_plots_kd.py` | Report figures -> `results/plots/` |
+
+All training scripts skip models that are already trained and resume from the last epoch if interrupted.
+
+**Outputs**
+
+| Path | Contents |
+|---|---|
+| `checkpoints/teacher/resnet50.pth` | Teacher |
+| `checkpoints/baseline/*.pth` | Baseline students |
+| `checkpoints/distilled/*.pth` | Distilled students |
+| `onnx/{teacher,baseline,distilled}/*.onnx` | ONNX models |
+| `results/history/*.csv` | Per-epoch training logs |
+| `results/kd_benchmark.csv` | Benchmark table |
+| `results/plots/*.png` | Figures |
+
+### Part 2 - Hardware-Aware NAS (CIFAR-10)
+
+_Coming next._
 
 ## Results
 
